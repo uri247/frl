@@ -1,0 +1,25 @@
+application: u-arch
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+
+env_variables:
+    DJANGO_SETTINGS_MODULE: 'frl.settings'
+    SETTINGS_MODE: 'prod'
+
+libraries:
+- name: django
+  version: "1.4"
+  
+- name: PIL
+  version: latest
+
+builtins:
+- django_wsgi: on
+
+handlers:
+- url: /static/admin
+  static_dir: static/admin
+  expiration: '0'

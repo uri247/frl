@@ -69,7 +69,7 @@ USE_TZ = True
 # Example: "/home/media/media.lawrence.com/media/"
 my_media_dir = os.path.abspath( os.path.join( PROJECT_PATH, 'media' ) )
 if( os.path.sep != '/' ):
-    my_static_dir = my_media_dir.replace( os.path.sep, '/' )
+    my_media_dir = my_media_dir.replace( os.path.sep, '/' )
 
 MEDIA_ROOT = my_media_dir
 
@@ -82,7 +82,11 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+my_static_dir = os.path.abspath( os.path.join( PROJECT_PATH, 'static' ) )
+if( os.path.sep != '/' ):
+    my_static_dir = my_static_dir.replace( os.path.sep, '/' )
+   
+STATIC_ROOT = my_static_dir
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
