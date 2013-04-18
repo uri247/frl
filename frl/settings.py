@@ -3,6 +3,9 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+PROJECT_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -39,17 +42,6 @@ else:
     } }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'frl',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'makefile',                  # Not used with sqlite3.
-        'HOST': 'precise',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -75,7 +67,11 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+my_media_dir = os.path.abspath( os.path.join( PROJECT_PATH, 'media' ) )
+if( os.path.sep != '/' ):
+    my_static_dir = my_media_dir.replace( os.path.sep, '/' )
+
+MEDIA_ROOT = my_media_dir
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -145,10 +141,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'architect',
 )
 
 # A sample logging configuration. The only tangible logging
