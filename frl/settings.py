@@ -33,6 +33,7 @@ elif( os.getenv('COMPUTERNAME') == 'DT1' ):
         'USER': 'root',
         'PASSWORD': password,
         'HOST': 'precise',
+        'TEST_CHARSET': 'UTF8',
     } }
 else:
     #use sqlite
@@ -67,7 +68,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-my_media_dir = os.path.abspath( os.path.join( PROJECT_PATH, 'media' ) )
+my_media_dir = os.path.abspath( os.path.join( PROJECT_PATH, 'static', 'media' ) )
 if( os.path.sep != '/' ):
     my_media_dir = my_media_dir.replace( os.path.sep, '/' )
 
@@ -76,7 +77,7 @@ MEDIA_ROOT = my_media_dir
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/static/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
