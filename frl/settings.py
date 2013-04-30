@@ -1,4 +1,5 @@
 import os
+from frl import gcs_storage
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -41,6 +42,9 @@ else:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'c:\\local\\data\\frl.sqlite',                              
     } }
+
+imort gcs_storage
+DEFAULT_FILE_STORAGE = GcsStorage 
 
 
 # Local time zone for this installation. Choices can be found here:

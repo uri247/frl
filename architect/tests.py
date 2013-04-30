@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.files import File
 from architect.models import Architect, Classification, Project
-from architect import utf8lit
+from architect import literals
 
 class ModelTests(TestCase):
 
@@ -17,7 +17,7 @@ class ModelTests(TestCase):
             self.assertEqual( m.objects.count(), 0 )
                 
     def add_architects(self):
-        for a in utf8lit.test_architects:
+        for a in literals.test_architects:
             arch = Architect( firstname_e = a[0], lastname_e = a[1],
                 firstname_h = a[2], lastname_h = a[3],
                 email = a[4], portrait = File(file(a[5])) )
