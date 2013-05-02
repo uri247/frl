@@ -10,6 +10,7 @@ class GcsFile(File):
 
 class GcsStorage(Storage):
     bucket_name = 'frlpix'
+    overwrite = False
 
     def __init__(self):
         pass
@@ -50,15 +51,15 @@ class GcsStorage(Storage):
         writable_name = files.gs.create(full_name, content_type)
         with files.open( writable_name, 'a') as f:
             f.write( content )
-            pass
-        pass
+        files.finalize(writable_name)
+        return name
     
     def delete(self, name):
         full_name = '/gs/%s/%s' % (self.bucket_name, name)
         files.delete(full_name)
 
     def exists(self, name):
-        path = '/gs/%s'
+        path = '/gs/%s' % self.bucket_name
         listdir = files.listdir(path, prefix= '/' + name)
         if len(listdir) == 1:
             return True
@@ -82,10 +83,9 @@ class GcsStorage(Storage):
             query_auth=self.querystring_auth, force_http=not self.secure_urls)
 
     def get_available_name(self, name):
-        """ Overwrite existing file with the same name. """
-        if self.file_overwrite:
-            name = self._clean_name(name)
+        if self.overwrite:
             return name
-        return super(S3BotoStorage, self).get_available_name(name)
+        else:
+            return super(GcsStorage, self).get_available_name(name)
 
         

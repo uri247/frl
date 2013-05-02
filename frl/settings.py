@@ -1,5 +1,4 @@
 import os
-from frl import gcs_storage
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,10 +23,11 @@ if( os.getenv('SERVER_SOFTWARE','').startswith('Google App Engine') or
         'INSTANCE': 'london.org.il:database:data',
         'NAME': 'frl',
     } }
-elif( os.getenv('COMPUTERNAME') == 'DT1' ):
+elif( os.getenv('AT_HOME') == 'yes' ):
     #I'm in my home, use the mysql server. First get the password
-    from maipai import secrets
-    password = secrets.query('cut', 'maipai', 'password')
+    #from maipai import secrets
+    #password = secrets.query('cut', 'maipai', 'password')
+    password = '-----'
     DATABASES = { 'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'frl',
@@ -43,8 +43,7 @@ else:
         'NAME': 'c:\\local\\data\\frl.sqlite',                              
     } }
 
-imort gcs_storage
-DEFAULT_FILE_STORAGE = GcsStorage 
+DEFAULT_FILE_STORAGE = 'frl.gcs_storage.GcsStorage' 
 
 
 # Local time zone for this installation. Choices can be found here:
